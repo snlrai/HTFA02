@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sens_data_nlp.iml" filepath="$PROJECT_DIR$/.idea/sens_data_nlp.iml" />
+ main
+      <module fileurl="file://$PROJECT_DIR$/.idea/SJEC.iml" filepath="$PROJECT_DIR$/.idea/SJEC.iml" />
+ main
     </modules>
   </component>
 </project>
