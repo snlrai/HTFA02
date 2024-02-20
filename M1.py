@@ -1,12 +1,13 @@
 import spacy
 import pandas as pd
+import pickle
 # Load SpaCy's English model with word vectors
 nlp = spacy.load("en_core_web_lg")
 
 # Define the columns
 columns = [
     'name' , 'nickname' , 'full name', 'first name', 'last name' , 'customer name', 'email', 'phone number', 'address', 'city' ,
-    'state', 'postal_code', 'country', 'gender', 'age' , 'customer age' , 'birthdate', 'customer_id',
+    'state', 'postal_code', 'country', 'gender', 'age' , 'customer age' , 'birthdate', 'customer id',
     'social_security_number', 'passport_number', 'driver_license_number',
     'bank_account_number', 'credit_card_number', 'medical_record_number', 'health_insurance_number'
 ]
@@ -39,5 +40,5 @@ for colu in column_names:
                 df = df.drop(columns=[colu])
                 column_names = df.columns.tolist()
                 print(column_names)
-# df.to_csv('output1.csv', index=False)
+df.to_csv('output1.csv', index=False)
 
