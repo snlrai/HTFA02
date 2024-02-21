@@ -8,9 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense,LSTM
-from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint
+
 store_sales=pd.read_csv("output2.csv")
 store_sales = store_sales[['purchase date', 'quantity']]
 store_sales['purchase date'] = pd.to_datetime(store_sales['purchase date'])
@@ -18,19 +16,8 @@ store_sales['purchase date'] = pd.to_datetime(store_sales['purchase date'])
 montly_sales = store_sales.groupby(store_sales['purchase date'].dt.to_period("M"))['quantity'].sum().reset_index()
 
 montly_sales['purchase date']=montly_sales['purchase date'].dt.to_timestamp()
-# plt.figure(figsize=(15,5))
-# plt.plot(montly_sales['purchase date'],montly_sales['quantity'])
-# plt.xlabel("purchase date")
-# plt.ylabel("quantity")
-# plt.title("montly custom sales")
 montly_sales['sales_diff']=montly_sales['quantity'].diff()
 montly_sales=montly_sales.dropna()
-# plt.figure(figsize=(15,5))
-# plt.plot(montly_sales['purchase date'],montly_sales['sales_diff'])
-# plt.xlabel("DATE")
-# plt.ylabel("QUANTITY")
-# plt.title("montly sales diff")
-# plt.show()
 supervised_data=montly_sales.drop(['purchase date','quantity'],axis=1)
 for i in range(1,13):
   col_name='month'+str(i)
@@ -83,4 +70,4 @@ plt.title("Customer sales forecast")
 plt.xlabel("dates")
 plt.ylabel("sales")
 plt.legend(['actual sales','predict sales'])
-plt.show()
+plt.savefig("output_graph.png")

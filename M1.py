@@ -1,6 +1,6 @@
 import spacy
 import pandas as pd
-import pickle
+import sys
 # Load SpaCy's English model with word vectors
 nlp = spacy.load("en_core_web_lg")
 
@@ -25,12 +25,14 @@ def check_similarity(input_text):
             similarity_scores[col] = 0  # Set similarity score to 0 if one of the documents has an empty vector
     return similarity_scores
 
-# Example input text
-df = pd.read_csv('./ecommerce_customer_data_large.csv')
+#input
+df = pd.read_csv('./temp/input.csv')
 column_names = df.columns.tolist()
 df.columns = df.columns.str.lower()
 column_names = df.columns.tolist()
 # print(column_names)
+
+
 for colu in column_names:
     similarity_scores = check_similarity(colu)
     for col, score in similarity_scores.items():

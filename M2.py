@@ -53,19 +53,25 @@ def check_similarity(input_text,check_data):
 column_names = df.columns.tolist()
 df.columns = df.columns.str.lower()
 column_names = df.columns.tolist()
-
+p=q=0
 for column in column_names:
-    similarity_scores = check_similarity(column,purchase_date_titles_lower)
-    for col, score in similarity_scores.items():
-        if score > 0.8:
-            print(f"Similarity with {column} '{col}': {score}")
-            df = df.rename(columns={column:'purchase date'})
-
+    if column == "purchase date":
+        p=p+1
+    elif column == "quantity":
+        q=q+1
 for column in column_names:
-    similarity_scores = check_similarity(column, product_sales_titles_lower)
-    for col, score in similarity_scores.items():
-        if score > 0.8:
-            print(f"Similarity with {column} '{col}': {score}")
-            df = df.rename(columns={column:'quantity'})
+    if p == 0:
+        similarity_scores = check_similarity(column,purchase_date_titles_lower)
+        for col, score in similarity_scores.items():
+            if score > 0.8:
+                print(f"Similarity with {column} '{col}': {score}")
+                df = df.rename(columns={column:'purchase date'})
+for column in column_names:
+    if q == 0:
+        similarity_scores = check_similarity(column, product_sales_titles_lower)
+        for col, score in similarity_scores.items():
+            if score > 0.8:
+                print(f"Similarity with {column} '{col}': {score}")
+                df = df.rename(columns={column:'quantity'})
 
 df.to_csv('output2.csv', index=False)
